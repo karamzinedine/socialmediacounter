@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+  <meta charset="UTF-8">
+  <title>Social Stats</title>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Arabic:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      padding: 30px 15px;
+      background-color: #fff;
+      font-family: 'Noto Sans Arabic', sans-serif;
+      direction: rtl;
+      text-align: center;
+    }
+
+    .social-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+      gap: 30px;
+      justify-items: center;
+      align-items: center;
+      max-width: 1200px;
+      margin: auto;
+    }
+
+    .social-box {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .social-box img {
+      width: 60px;
+      height: 60px;
+      margin-bottom: 10px;
+    }
+
+    .social-count {
+  font-size: 22px;
+  font-weight: 700;
+  color: #d2a164;
+  font-family: 'Noto Sans Arabic', sans-serif;
+  direction: ltr;
+  unicode-bidi: plaintext;
+}
+
+
+    .social-label {
+      font-size: 14px;
+      color: #444;
+      font-family: 'Noto Sans Arabic', sans-serif;
+    }
+
+    @media (max-width: 600px) {
+      .social-box img {
+        width: 40px;
+        height: 40px;
+      }
+      .social-count { font-size: 18px; }
+      .social-label { font-size: 13px; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="social-grid">
+
+  <div class="social-box">
+    <img src="https://cdn-icons-png.flaticon.com/512/1384/1384060.png" alt="YouTube">
+    <div class="social-count" data-target="800000">0</div>
+    <div class="social-label"></div>
+  </div>
+
+  <div class="social-box">
+    <img src="https://cdn-icons-png.flaticon.com/512/1384/1384063.png" alt="Instagram">
+    <div class="social-count" data-target="210000">0</div>
+    <div class="social-label"></div>
+  </div>
+
+  <div class="social-box">
+    <img src="https://cdn-icons-png.flaticon.com/512/1384/1384053.png" alt="Facebook">
+    <div class="social-count" data-target="290000">0</div>
+    <div class="social-label"></div>
+  </div>
+
+  <div class="social-box">
+    <img src="https://cdn-icons-png.flaticon.com/512/5968/5968830.png" alt="X">
+    <div class="social-count" data-target="30000">0</div>
+    <div class="social-label"></div>
+  </div>
+
+  <div class="social-box">
+    <img src="https://cdn-icons-png.flaticon.com/512/145/145807.png" alt="LinkedIn">
+    <div class="social-count" data-target="9000">0</div>
+    <div class="social-label"></div>
+  </div>
+
+  <div class="social-box">
+    <img src="https://cdn-icons-png.flaticon.com/512/3046/3046120.png" alt="TikTok">
+    <div class="social-count" data-target="180000">0</div>
+    <div class="social-label"></div>
+  </div>
+
+</div>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const counters = document.querySelectorAll('.social-count');
+    const formatCount = (num) => {
+      if (num >= 1000000) return '+' + (num / 1000000).toFixed(1) + 'M';
+      if (num >= 1000) return '+' + (num / 1000).toFixed(0) + 'K';
+      return '+' + num;
+    };
+
+    counters.forEach(counter => {
+      const target = +counter.getAttribute('data-target');
+      let current = 0;
+      const increment = target / 100;
+
+      const updateCount = () => {
+        current += increment;
+        if (current < target) {
+          counter.innerText = formatCount(current);
+          requestAnimationFrame(updateCount);
+        } else {
+          counter.innerText = formatCount(target);
+        }
+      };
+
+      updateCount();
+    });
+  });
+</script>
+
+</body>
+</html>
